@@ -1,11 +1,93 @@
+<!--
+  - Copyright (c)  2025.3.7
+  - Henry Zhao
+  - araneae_front  -  California Beans (HollowData.com)
+  - ButtonMediumOutline.vue
+  - Last Modified: 2025-03-07 18:37:21  -  Davis, CA
+  -
+  - All rights reserved. Unauthorized copying of this file, via any medium,
+  - is strictly prohibited unless prior written permission is obtained.
+  -->
+
+<!-- ButtonMediumOutline.vue -->
 <template>
-  <button class="border border-[#4b7bf5] text-[#4b7bf5] hover:bg-[#4b7bf5] hover:text-white focus:ring-4 focus:ring-[#c2e2f5] font-medium py-2 px-5 rounded-lg text-base focus:outline-none">
-    中按钮
-  </button>
+	<button
+		:style="computedStyles"
+		@blur="blurEffect"
+		@focus="focusEffect"
+		@mouseout="resetEffect"
+		@mouseover="hoverEffect">
+		中按钮
+	</button>
 </template>
 
 <script>
+import colors from '@/config/colors';
+
 export default {
-  name: 'ButtonMediumOutline',
+	name: 'ButtonMediumOutline',
+	data() {
+		return {
+			colors,
+		};
+	},
+	computed: {
+		computedStyles() {
+			return {
+				width: this.getWidth(),
+				height: this.getHeight(),
+				border: this.getBorder(),
+				color: this.getColor(),
+				backgroundColor: this.getBackgroundColor(),
+				borderRadius: this.getBorderRadius(),
+				padding: this.getPadding(),
+				transition: this.getTransition(),
+				fontSize: this.getFontSize(),
+			};
+		},
+	},
+	methods: {
+		getWidth() {
+			return '96px';
+		},
+		getHeight() {
+			return '48px';
+		},
+		getBorder() {
+			return `2px solid ${this.colors.yellowGreen}`;
+		},
+		getColor() {
+			return this.colors.yellowGreen;
+		},
+		getBackgroundColor() {
+			return this.colors.white;
+		},
+		getBorderRadius() {
+			return '8px';
+		},
+		getPadding() {
+			return '8px 16px';
+		},
+		getTransition() {
+			return 'all 0.2s';
+		},
+		getFontSize() {
+			return '14px';
+		},
+		hoverEffect(event) {
+			event.target.style.backgroundColor = this.colors.yellowGreen;
+			event.target.style.color = this.colors.white;
+		},
+		resetEffect(event) {
+			event.target.style.backgroundColor = this.colors.white;
+			event.target.style.color = this.colors.yellowGreen;
+		},
+		focusEffect(event) {
+			event.target.style.outline = `4px solid ${this.colors.grayLight}`;
+		},
+		blurEffect(event) {
+			event.target.style.outline = 'none';
+		},
+	},
 };
 </script>

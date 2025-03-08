@@ -1,17 +1,88 @@
+<!--
+  - Copyright (c)  2025.3.7
+  - Henry Zhao
+  - araneae_front  -  California Beans (HollowData.com)
+  - CheckboxRoundField.vue
+  - Last Modified: 2025-03-07 18:37:21  -  Davis, CA
+  -
+  - All rights reserved. Unauthorized copying of this file, via any medium,
+  - is strictly prohibited unless prior written permission is obtained.
+  -->
+
 <template>
-  <label class="inline-flex items-center cursor-pointer">
-    <input type="checkbox" class="sr-only peer">
-    <div class="w-6 h-6 border-2 border-[#4b7bf5] peer-checked:bg-[#4b7bf5] rounded-full flex items-center justify-center transition-all">
-      <svg class="w-4 h-4 text-white hidden peer-checked:block transform scale-0 peer-checked:scale-100 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-      </svg>
-    </div>
-    <span class="ml-2 text-base font-medium">Checkbox</span>
-  </label>
+	<label :style="labelStyles">
+		<input :style="inputStyles" type="checkbox" @change="toggleCheck">
+		<div :style="checkboxStyles">
+			<div :style="innerCircleStyles"></div>
+		</div>
+		<span :style="labelTextStyles">Checkbox</span>
+	</label>
 </template>
 
 <script>
+import colors from '@/config/colors';
+
 export default {
-  name: 'CheckboxRoundField',
+	name: 'CheckboxRoundField',
+	data() {
+		return {
+			colors,
+			isChecked: false,
+		};
+	},
+	computed: {
+		labelStyles() {
+			return {
+				display: 'inline-flex',
+				alignItems: 'center',
+				cursor: 'pointer',
+			};
+		},
+		inputStyles() {
+			return {
+				position: 'absolute',
+				opacity: '0',
+				width: '0',
+				height: '0',
+			};
+		},
+		checkboxStyles() {
+			return {
+				width: '24px',
+				height: '24px',
+				border: `2px solid ${this.colors.yellowGreen}`,
+				backgroundColor: this.isChecked ? this.colors.yellowGreen : 'transparent',
+				borderRadius: '50%',
+				display: 'flex',
+				alignItems: 'center',
+				justifyContent: 'center',
+				transition: 'all 0.2s',
+				position: 'relative',
+			};
+		},
+		innerCircleStyles() {
+			return {
+				width: '12px',
+				height: '12px',
+				backgroundColor: this.colors.white,
+				borderRadius: '50%',
+				position: 'absolute',
+				opacity: this.isChecked ? '1' : '0',
+				transition: 'opacity 0.2s',
+			};
+		},
+		labelTextStyles() {
+			return {
+				marginLeft: '8px',
+				fontSize: '14px',
+				fontWeight: '500',
+			};
+		},
+	},
+	methods: {
+		toggleCheck(event) {
+			this.isChecked = event.target.checked;
+		},
+	},
 };
-</script>
+</script>s
